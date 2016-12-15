@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Run CABS on a MNIST example.
+
+This will download the dataset to data/mnist automatically if necessary.
 """
 
 import os

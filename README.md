@@ -1,5 +1,9 @@
 # SGD with Coupled Adaptive Batch Size (CABS)
 
+*Note:* Paper will appear on arXiv shortly.
+
+*Note:* CIFAR-10 example will be uploaded shortly.
+
 This is a TensorFlow implementation of [SGD with Coupled Adaptive Batch Size (CABS)][1].
 
 ## The Algorithm in a Nutshell
@@ -17,16 +21,21 @@ tensorflow (0.12.0 is known to work).
 
 ## Usage
 
-There are two "paradigms" for using CABS, depending on how you feed data to your
-TensorFlow model.
+Usage of ``CABSOptimizer`` is similar to that of other TensorFlow optimizers,
+with the exception that its ``minimize`` function expects a vector of ``losses``
+one for each training example in the batch, instead of an aggregate mean
+``loss``. This is so that the optimizer can easily access the batch size. Moreover,
+some measures have to be taken to ensure that batches of appropriate size are
+fed into the TensorFlow model. The specifics depend on how you choose to feed
+your data.
 
 ### Manually Feeding Data
 If you are a manually providing the training data via a
-``feed_dict`, you have to fetch the batch size that CABS suggests and then
+``feed_dict``, you have to fetch the batch size that CABS suggests and then
 provide a batch of that size for the next iteration. This would look roughly
 like this
 
-```
+```python
 import tensorflow as tf
 from cabs import CABSOptimizer
 
@@ -50,8 +59,6 @@ for i in range(num_steps):
   m = m_new
 ```
 
-Note that you have to pass a vector of loss values, one for each example in the
-batch, instead of an aggregate mean loss.
 The MNIST example (examples/run_cabs_mnist.py) for a full working example using
 ``feed_dict``.
 
@@ -64,7 +71,7 @@ then pass ``global_bs`` to the ``minimize`` method of the ``CABSOptimizer``. The
 optimizer will then write the new batch size to the global batch size variable,
 directly communicating it to your data loading mechanism. Sketch:
 
-```
+```python
 import tensorflow as tf
 from cabs import CABSOptimizer
 
@@ -87,8 +94,6 @@ for i in range(num_steps):
   print(m_new)
 ```
 
-Note that you have to pass a vector of loss values, one for each example in the
-batch, instead of an aggregate mean loss.
 Refer to our CIFAR-10 example (examples/run_cabs_cifar10.py) for a full working
 example using this mechanism.
 
@@ -100,9 +105,8 @@ The implementation of CABS (see cabs.py) itself is straight-forward. The
 implements the identical parameter updates, but adds the necessary additional
 computations for the CABS batch size. A crucial part of that is the within-batch
 estimate of the gradient variance, see equation (10) in the [paper][1]. As
-mentioned in section 4.2, the computation of the second gradient moment is a
-little tricky. It can be found in gradient_moment.py. For more information see
-this [note][2].
+mentioned in section 4.2, the computation of the second gradient moment (see
+gradient_moment.py) is a little tricky; for more information see this [note][2].
 
 [1]: https://arxiv.org/
 [2]: https://drive.google.com/open?id=0B0adgqwcMJK5aDNaQ2Q4ZmhCQzA
