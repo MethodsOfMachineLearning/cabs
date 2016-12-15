@@ -18,7 +18,7 @@ objective function. Refer to the [paper][1] for more information.
 
 ## Requirements
 
-Based on tensorflow (0.10.0 is known to work).
+Based on tensorflow (0.12.0 is known to work).
 
 ## Usage
 

@@ -138,8 +138,10 @@ class CABSOptimizer(tf.train.GradientDescentOptimizer):
       bs_new_raw = c*lr*tf.div(xi_avg, loss_avg+eps)
     
     # Round the new batch size
-    bs_new = tf.clip_by_value(tf.round(bs_new_raw), bs_min, bs_max)
+    bs_new_rounded = tf.round(bs_new_raw)
+    bs_new = tf.clip_by_value(bs_new_rounded, bs_min, bs_max)
     bs_new = tf.to_int32(bs_new)
+    bs_new = tf.reshape(bs_new, [])
         
     # If a global variable to hold the batch size was given by the user, add
     # operation that saves the new batch size to this variable
