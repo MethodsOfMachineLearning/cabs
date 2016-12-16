@@ -1,7 +1,5 @@
 # SGD with Coupled Adaptive Batch Size (CABS)
 
-*Note:* CIFAR-10 example will be uploaded shortly.
-
 This is a TensorFlow implementation of [SGD with Coupled Adaptive Batch Size (CABS)][1].
 
 ## The Algorithm in a Nutshell
