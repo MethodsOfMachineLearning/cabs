@@ -1,7 +1,5 @@
 # SGD with Coupled Adaptive Batch Size (CABS)
 
-*Note:* Paper will appear on arXiv shortly.
-
 *Note:* CIFAR-10 example will be uploaded shortly.
 
 This is a TensorFlow implementation of [SGD with Coupled Adaptive Batch Size (CABS)][1].
@@ -108,5 +106,5 @@ estimate of the gradient variance, see equation (10) in the [paper][1]. As
 mentioned in section 4.2, the computation of the second gradient moment (see
 gradient_moment.py) is a little tricky; for more information see this [note][2].
 
-[1]: https://arxiv.org/
+[1]: https://arxiv.org/abs/1612.05086
 [2]: https://drive.google.com/open?id=0B0adgqwcMJK5aDNaQ2Q4ZmhCQzA
