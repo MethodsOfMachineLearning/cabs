@@ -20,10 +20,9 @@ from models import mnist_2conv_2dense as model
 num_steps = 8000
 learning_rate = 0.1
 initial_batch_size = 16
-bs_min = 16,
+bs_min = 16
 bs_max = 2048
 ###############################################################################
-
 
 # Set up model
 losses, placeholders, variables = model.set_up_model()
