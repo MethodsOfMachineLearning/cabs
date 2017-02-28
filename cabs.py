@@ -135,7 +135,7 @@ class CABSOptimizer(tf.train.GradientDescentOptimizer):
     # Compute the new batch size (with a dependency that makes sure that the
     # moving averages are updated beforehand)
     with tf.control_dependencies(update_avgs):
-      bs_new_raw = c*lr*tf.div(xi_avg, loss_avg+eps)
+      bs_new_raw = c*lr*tf.divide(xi_avg, loss_avg+eps)
     
     # Round the new batch size
     bs_new_rounded = tf.round(bs_new_raw)

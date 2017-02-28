@@ -153,7 +153,7 @@ def _MatMulGradMom(op, W, out_grad, batch_size, mom=2):
   A = op.inputs[0]
   out_grad_pow = tf.pow(out_grad, mom)
   A_pow = tf.pow(A, mom)
-  return tf.mul(batch_size, tf.matmul(A_pow, out_grad_pow, transpose_a=True))
+  return tf.multiply(batch_size, tf.matmul(A_pow, out_grad_pow, transpose_a=True))
 
 def _Conv2DGradMom(op, f, out_grad, batch_size, mom=2):
   """Computes gradient moment for the filter of a Conv2D operation.
@@ -186,7 +186,7 @@ def _Conv2DGradMom(op, f, out_grad, batch_size, mom=2):
   
   raw_moment = tf.nn.conv2d_backprop_filter(inp_pow, f_shape, out_grad_pow,
       strides, padding, use_cudnn, data_format)
-  return tf.mul(batch_size, raw_moment)
+  return tf.multiply(batch_size, raw_moment)
 
 def _AddGradMom(op, b, out_grad, batch_size, mom=2):
   """Computes gradient moment for a bias variable through an Add operation.
@@ -220,4 +220,4 @@ def _AddGradMom(op, b, out_grad, batch_size, mom=2):
     sy = tf.shape(b)
     rx, ry = gen_array_ops._broadcast_gradient_args(sx, sy)
     raw_mom = tf.reshape(tf.reduce_sum(out_grad_pow, ry), sy)
-  return tf.mul(batch_size, raw_mom)
+  return tf.multiply(batch_size, raw_mom)

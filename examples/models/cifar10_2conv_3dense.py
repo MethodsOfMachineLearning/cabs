@@ -34,7 +34,7 @@ def set_up_model(images, labels):
   h_conv2_pool = max_pool_3x3(h_conv2)
   
   batch_size = tf.gather(tf.shape(images), 0)  
-  reshape = tf.reshape(h_conv2_pool, tf.pack([batch_size, -1]))
+  reshape = tf.reshape(h_conv2_pool, tf.stack([batch_size, 2304]))
   dim = 2304
   W_fc1 = weight_variable([dim, 384], 0.04)
   b_fc1 = bias_variable([384], 0.1)
@@ -49,5 +49,5 @@ def set_up_model(images, labels):
   h_fc3 = tf.matmul(h_fc2, W_fc3) + b_fc3
   
   labels = tf.cast(labels, tf.int64)
-  losses = tf.nn.sparse_softmax_cross_entropy_with_logits(h_fc3, labels)
+  losses = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=h_fc3, labels=labels)
   return losses, [W_conv1, b_conv1, W_conv2, b_conv2, W_fc1, b_fc1, W_fc2, b_fc2, W_fc3, b_fc3]

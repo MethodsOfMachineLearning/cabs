@@ -13,8 +13,7 @@ current value of the loss function. Refer to the [paper][1] for more information
 
 ## Requirements
 
-tensorflow (0.12.0 is known to work).
-
+tensorflow 1.0
 ## Usage
 
 Usage of ``CABSOptimizer`` is similar to that of other TensorFlow optimizers,
@@ -55,7 +54,7 @@ for i in range(num_steps):
   m = m_new
 ```
 
-The MNIST example (examples/run_cabs_mnist.py) for a full working example using
+The MNIST example (examples/run_cabs_mnist.py) is a full working example using
 ``feed_dict``.
 
 ### Reading Data from Files
